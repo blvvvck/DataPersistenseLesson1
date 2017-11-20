@@ -235,18 +235,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func didPressDone(with note: String) {
         let tempNews = News(text: note, image: newsImageArray[Int(arc4random_uniform(UInt32(newsImageArray.count)))], likesCount: newsLikesArray[Int(arc4random_uniform(UInt32(newsLikesArray.count)))], commentsCount: newsCommentsArray[Int(arc4random_uniform(UInt32(newsCommentsArray.count)))], repostsCount: newsRepostsArray[Int(arc4random_uniform(UInt32(newsRepostsArray.count)))], name: nameLabel.text!, surname: surnameLabel.text!, date: newsDateArray[Int(arc4random_uniform(UInt32(newsDateArray.count)))], id: UUID().uuidString)
         
-        newsManager.asyncSave(with: tempNews) { (isSaved) in
+        newsManager.asyncSave(with: tempNews) {[weak self] (isSaved) in
+            guard let strongSelf = self else { return }
             if (isSaved) {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        
-        newsManager.asyncGetAll { (news) in
-            self.news = news
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+                strongSelf.newsManager.asyncGetAll(completionBlock: { (news) in
+                    strongSelf.news = news
+                    DispatchQueue.main.async {
+                        strongSelf.tableView.reloadData()
+                    }
+                })
             }
         }
     }

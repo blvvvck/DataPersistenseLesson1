@@ -6,9 +6,6 @@
 //  Copyright © 2017 blvvvck production. All rights reserved.
 //
 
-import Foundation
-
-import Foundation
 import UIKit
 
 struct UserRegistration {

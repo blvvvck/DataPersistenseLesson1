@@ -6,20 +6,19 @@
 //  Copyright © 2017 blvvvck production. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class News: NSObject, NSCoding {
 
     @objc let text: String
-    var image: UIImage?
-    let likesCount: String
-    let commentsCount: String
-    let repostsCount: String
-    let name: String
-    let surname: String
-    let date: String
-    let id: String
+    @objc var image: UIImage?
+    @objc let likesCount: String
+    @objc let commentsCount: String
+    @objc let repostsCount: String
+    @objc let name: String
+    @objc let surname: String
+    @objc let date: String
+    @objc let id: String
     
     init(text: String, image: UIImage?, likesCount: String, commentsCount: String, repostsCount: String, name: String, surname: String, date: String, id: String) {
         

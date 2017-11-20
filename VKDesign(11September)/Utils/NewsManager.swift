@@ -16,18 +16,15 @@ class NewsManager: WorkWithDataProtocol {
     @objc var news = [News]()
     
     init() {
-
         if let currentNewsData = UserDefaults.standard.data(forKey: #keyPath(NewsManager.news)){
-            
             guard let currentNews = NSKeyedUnarchiver.unarchiveObject(with: currentNewsData) as? [News] else { return }
-            
             news = currentNews
         } 
     }
     
     func syncSave(with news: News) {
         self.news.append(news)
-        let archiver = NSKeyedArchiver.archivedData(withRootObject: news)
+        let archiver = NSKeyedArchiver.archivedData(withRootObject: self.news)
         UserDefaults.standard.set(archiver, forKey: #keyPath(NewsManager.news))
     }
     
